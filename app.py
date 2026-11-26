@@ -16,18 +16,23 @@ SYSTEM_PROMPT = (
 )
 
 def consultar_agente(mensaje_usuario: str) -> str:
-    try:
-        response = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=mensaje_usuario,
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                temperature=0.7,
-            ),
-        )
-        return response.text
-    except Exception as e:
-        return f"Error al conectar con la IA: {str(e)}"
+    modelos = ["gemini-3.8-flash", "gemini-3.8-flash-lite", "gemini-2.5-flash-lite"]
+    ultimo_error = ""
+    for modelo in modelos:
+        try:
+            response = client.models.generate_content(
+                model=modelo,
+                contents=mensaje_usuario,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_PROMPT,
+                    temperature=0.7,
+                ),
+            )
+            return response.text
+        except Exception as e:
+            ultimo_error = str(e)
+            continue
+    return f"Error al conectar con la IA: {ultimo_error}"
 
 @st.cache_resource
 def iniciar_bot_telegram():
