@@ -16,8 +16,7 @@ SYSTEM_PROMPT = (
 )
 
 def consultar_agente(mensaje_usuario: str) -> str:
-    modelos = ["gemini-3.8-flash", "gemini-3.8-flash-lite", "gemini-2.5-flash-lite"]
-    ultimo_error = ""
+  modelos = ["gemini-3.5-flash-lite", "gemini-3.8-flash"]    ultimo_error = ""
     for modelo in modelos:
         try:
             response = client.models.generate_content(
