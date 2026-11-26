@@ -16,7 +16,8 @@ SYSTEM_PROMPT = (
 )
 
 def consultar_agente(mensaje_usuario: str) -> str:
-  modelos = ["gemini-3.5-flash-lite", "gemini-3.8-flash"]    ultimo_error = ""
+    modelos = ["gemini-3.5-flash-lite", "gemini-3.8-flash"]
+    ultimo_error = ""
     for modelo in modelos:
         try:
             response = client.models.generate_content(
@@ -52,7 +53,11 @@ def iniciar_bot_telegram():
         respuesta = consultar_agente(message.text)
         bot.reply_to(message, respuesta)
 
-    hilo = threading.Thread(target=bot.infinity_polling, kwargs={"timeout": 20, "long_polling_timeout": 10}, daemon=True)
+    hilo = threading.Thread(
+        target=bot.infinity_polling,
+        kwargs={"timeout": 20, "long_polling_timeout": 10},
+        daemon=True
+    )
     hilo.start()
     return bot
 
