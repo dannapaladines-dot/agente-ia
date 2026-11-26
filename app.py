@@ -18,7 +18,7 @@ SYSTEM_PROMPT = (
 def consultar_agente(mensaje_usuario: str) -> str:
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=mensaje_usuario,
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_PROMPT,
